@@ -2,16 +2,16 @@
 
 > Agent handoff document. Read this before starting work on this project.
 > Produced by the discover-project-goal skill.
-> Last updated: 2026-09-09 (merged doc-cluster skills, added finish-ticket)
+> Last updated: 2026-09-09 (added write-jira-tickets, harmonized docs)
 
 ## TL;DR
 
 This is a graded homework project for learning Cursor Agent Skills. The goal is
 to build 3–5 project-scoped skills with varied patterns, plus a README that
-documents each skill. Five skills exist (`discover-project-goal`,
+documents each skill. Six skills exist (`discover-project-goal`,
 `maintain-project-docs`, `grill-me`, `finish-ticket`,
-`harmonize-project-skills`). Ready for final submission review. No application
-code is in scope.
+`harmonize-project-skills`, `write-jira-tickets`). Ready for final submission
+review. No application code is in scope.
 
 ## Problem and audience
 
@@ -38,7 +38,7 @@ code is in scope.
 
 ## Current phase
 
-- **Phase name:** Pre-submission — five skills in place, rebalanced for
+- **Phase name:** Pre-submission — six skills in place, rebalanced for
   category coverage against the assignment's example list
 - **Focus now:** Final instructor review; optional git init and commit if desired.
 - **Explicitly deferred:** Application code, deployment, tests, CI/CD — none of
@@ -48,7 +48,7 @@ code is in scope.
 
 | Priority | Item | Rationale |
 |----------|------|-----------|
-| P0 | 3–5 distinct project skills | Core deliverable — 5 of 3–5 done |
+| P0 | 3–5 distinct project skills | Core deliverable — 6 of 3–5 done |
 | P0 | README documenting all skills | Done; keep current via `maintain-project-docs` |
 | P1 | Pattern + category variety across skills | Primary grading criterion; assignment lists distinct workflow categories |
 | P1 | `discover-project-goal` skill polish | Done; harmonize pass confirmed submission-ready |
@@ -97,7 +97,11 @@ Skills-only repo. Current layout:
   (review, tests, coverage, integration, PR prep, ticket status) once the
   agent believes a ticket/task is done
 - `.cursor/skills/harmonize-project-skills/SKILL.md` — user-invoked audit of skill
-  structure, cohesion, and doc alignment; `checklist.md`, `report-template.md`
+   structure, cohesion, and doc alignment; `checklist.md`, `report-template.md`
+- `.cursor/skills/write-jira-tickets/SKILL.md` — ambient skill for drafting
+  testable Jira tickets and creating/updating them via Atlassian MCP; teaches
+  Conventional Commits + trailer (`Refs: PROJ-123`) for commit/branch linkage;
+  upstream of `finish-ticket`'s linkage check
 - `.cursor/PROJECT-BRIEF.md` — this file
 - `README.md` — instructor-facing skill catalog and invocation guide
 - `.gitignore` — standard Python template (no application code expected)
@@ -126,6 +130,7 @@ No application source. Git may or may not be initialized.
 | 2026-09-08 | `grill-me` for topic-scoped decision interviews | Settles open questions on a plan before building; syncs docs when decisions are durable | Active |
 | 2026-09-09 | Merged `align-with-brief` + `sync-project-docs` into `maintain-project-docs` | Assignment weights category breadth; reduced doc-cluster from 3 skills to 1 to make room | Active |
 | 2026-09-09 | Added `finish-ticket` (review/test/coverage/PR/ticket-status checklist) | Directly named in assignment as a workflow category; was the most central gap | Active |
+| 2026-09-09 | Added `write-jira-tickets` (ticket authoring + commit/branch linkage, ambient, uses Atlassian MCP) | Deeper coverage of ticket writing / git-commit linkage than `finish-ticket` alone provided; grilled via `grill-me` | Active |
 
 ## Risks and open questions
 
@@ -138,24 +143,22 @@ No application source. Git may or may not be initialized.
 
 ### Skill roadmap (candidate ideas)
 
-Remaining assignment categories not yet built, lowest priority first since 5
-of 5 minimum are done:
+Remaining assignment categories not yet built, lowest priority since 6 of 5
+minimum are done:
 
-1. **Ticket writing / git-commit linkage** — partially covered by
-   `finish-ticket`'s ticket-linkage step; a dedicated skill would go deeper
-   on writing clear, testable ticket descriptions up front
-2. **Mindset skill** (e.g. `dual_pass`: confirmational → adversarial →
+1. **Mindset skill** (e.g. `dual_pass`: confirmational → adversarial →
    concluding) — pure reasoning-pattern skill, no file I/O
-3. **Session-summary-as-tree** — structured chat-session summary for future
+2. **Session-summary-as-tree** — structured chat-session summary for future
    agents reading the transcript
-4. Infra usage, parallel-agent communication, local knowledge-base — flagged
+3. Infra usage, parallel-agent communication, local knowledge-base — flagged
    by the assignment itself as advanced/bonus ("överkurs")
 
 `discover-project-goal` covers interview + template; `grill-me` covers
 interview loop; `finish-ticket` covers completion/checklist;
 `maintain-project-docs` covers conditional read+write; `harmonize-project-skills`
-covers audit. New skills should keep covering distinct categories rather than
-adding more doc-lifecycle variants.
+covers audit; `write-jira-tickets` covers template/checklist for ticket
+authoring and git linkage. New skills should keep covering distinct categories
+rather than adding more doc-lifecycle variants.
 
 ## Recommended next steps
 
@@ -169,6 +172,6 @@ adding more doc-lifecycle variants.
   and supporting files (`template.md`, `doc-map.md`, `checklist.md`,
   `report-template.md`)
 - User interview date: 2026-09-08
-- Last harmonize audit: 2026-09-08
+- Last harmonize audit: 2026-09-09 (post `write-jira-tickets` addition — 1 Critical doc-drift item fixed, 0 remaining)
 - Related docs: `README.md` (skill catalog and invocation guide); no
   `.cursor/PROJECT.md`

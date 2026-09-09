@@ -34,8 +34,10 @@ homework3-skills/
 │       │   └── report-template.md     # Structured audit report format
 │       ├── grill-me/
 │       │   └── SKILL.md               # Interview loop until a topic is settled
-│       └── finish-ticket/
-│           └── SKILL.md               # Completion checklist: review, test, PR, ticket update
+│       ├── finish-ticket/
+│       │   └── SKILL.md               # Completion checklist: review, test, PR, ticket update
+│       └── write-jira-tickets/
+│           └── SKILL.md               # Ticket authoring + commit/branch linkage convention
 ```
 
 ## How to invoke a skill
@@ -295,11 +297,62 @@ Are we actually done here?
 ```
 Agent: [Finishes implementing the requested change]
 Agent: Tests pass (12/12, 2 new). Lint clean. No coverage tool in this repo —
-       flagging as a gap. Commit references TICKET-42. Ready for PR — want me
+       flagging as a gap. Commit has a `Refs: TICKET-42` trailer. Ready for PR — want me
        to open it?
 ```
 
 **Pair with:** `maintain-project-docs` (sync docs if completion reveals a durable decision)
+
+### `write-jira-tickets`
+
+**Pattern:** Template / checklist (ambient)
+
+**Purpose:** Teaches how to write clear, testable Jira tickets (summary,
+description, acceptance criteria) and link them to git commits and branches
+via the Conventional Commits + trailer convention (`Refs: PROJ-123`). Uses the
+Atlassian MCP tools to create or update real tickets when invoked.
+
+**When it applies (automatic):**
+
+- Drafting a Jira ticket, or writing a commit message/branch name that should
+  reference one
+- The user asks how to connect commits to tickets
+
+**How to invoke:**
+
+No explicit invocation needed — the agent applies this automatically when
+drafting a ticket or commit. To force it:
+
+```
+Write a Jira ticket for this
+How should I link this commit to the ticket?
+```
+
+**What happens:**
+
+1. **Structure the ticket** — Summary, description, testable acceptance criteria, type/labels, links; checks the target project's actual conventions via Atlassian MCP metadata calls before inventing fields.
+2. **Create/update** — Files or edits the real ticket via `createJiraIssue`/`editJiraIssue` after confirming project key and issue type.
+3. **Link commits** — Recommends Conventional Commits subject + `Refs: PROJ-123` footer trailer, and a matching `PROJ-123-short-desc` branch name; defers to the repo's existing convention if one is already in use.
+
+**Output:** Drafted or created ticket; recommended branch name and commit trailer convention.
+
+**Files:**
+
+| File | Role |
+|------|------|
+| `.cursor/skills/write-jira-tickets/SKILL.md` | Ticket authoring + linkage workflow |
+
+**Example behavior:**
+
+```
+You:  Write a Jira ticket for the login timeout bug and give me a branch name.
+Agent: [Checks project issue-type metadata, drafts summary/description/AC,
+       creates PROJ-456 via MCP]
+       Created PROJ-456. Branch: PROJ-456-fix-login-timeout.
+       Commit footer: Refs: PROJ-456.
+```
+
+**Pair with:** `finish-ticket` (verifies at completion time that commits actually followed this convention)
 
 ### `harmonize-project-skills`
 
@@ -361,7 +414,7 @@ Agent: [Patches skills and README, summarizes changes]
 
 ## Planned skills
 
-Five skills are done — the assignment minimum (3–5) is met.
+Six skills are done — above the assignment minimum (3–5).
 
 | Skill | Pattern | Status |
 |-------|---------|--------|
@@ -370,7 +423,7 @@ Five skills are done — the assignment minimum (3–5) is met.
 | `grill-me` | Interview loop (topic-scoped) | Done |
 | `finish-ticket` | Conditional auto-run checklist | Done |
 | `harmonize-project-skills` | Checklist audit + fix workflow | Done |
-| Ticket writing / git-commit linkage | Template / checklist | Considered — partially covered by `finish-ticket`'s ticket-linkage step |
+| `write-jira-tickets` | Template / checklist (ambient) | Done |
 | Mindset skill (e.g. confirmational → adversarial → concluding) | Reasoning workflow | Considered, not built |
 | Session-summary-as-tree | Template | Considered, not built |
 
@@ -407,3 +460,6 @@ To evaluate the skill set:
    it done.
 5. **`harmonize-project-skills`** — Invoke to audit the skill stack; review the
    report and optional fixes.
+6. **`write-jira-tickets`** — Ask the agent to write a ticket for some work; confirm
+   it drafts summary/AC, creates it via Atlassian MCP, and gives a branch name and
+   commit trailer convention.

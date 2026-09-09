@@ -59,8 +59,9 @@ explicitly rather than silently skipping.
 
 ### 5. Ticket linkage
 
-- Ensure commit messages reference the ticket ID (e.g. `PROJ-123: ...`) per the
-  repo's convention — check recent commit history if unsure of the format
+- Ensure commit messages reference the ticket ID (e.g. a `Refs: PROJ-123`
+  trailer footer per `write-jira-tickets`) per the repo's convention — check
+  recent commit history if unsure of the format
 - If no ticket ID convention exists, ask the user how tickets are tracked
   before inventing one
 
@@ -93,12 +94,13 @@ fail or a required step was skipped without explanation.
 | `maintain-project-docs` | If completion reveals a durable decision or scope change, sync brief/README via its write rules |
 | `harmonize-project-skills` | Skill-stack audit; not a substitute for per-ticket completion checks |
 | `grill-me` | Use before building if the ticket's goal was ambiguous; this skill runs after building |
+| `write-jira-tickets` | Draft-time ticket authoring and commit/branch linkage convention; this skill checks that convention was followed |
 
 ## Example
 
 **Agent:** Just finished implementing the requested change.
 **Action:** Runs self-review of the diff, runs the test suite (2 new tests
 added), confirms lint passes, notes no coverage tool is configured, checks the
-commit message references `TICKET-42`, drafts a PR description, and reports:
+commit message includes a `Refs: TICKET-42` trailer, drafts a PR description, and reports:
 "Tests pass (12/12, 2 new). Lint clean. No coverage tool in this repo — flagging
 as a gap. Ready for PR — want me to open it?"
